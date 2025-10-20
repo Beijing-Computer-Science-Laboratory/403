@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 Forbidden - 禁止访问</title>
+    <!-- Tailwind CSS v3 -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- GSAP 动画库 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        danger: {
+                            50: '#ffebee',
+                            100: '#ffcdd2',
+                            200: '#ef9a9a',
+                            300: '#e57373',
+                            400: '#ef5350',
+                            500: '#f44336',
+                            600: '#e53935',
+                            700: '#d32f2f',
+                            800: '#c62828',
+                            900: '#b71c1c',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-warning': 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'shake': 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both',
+                    },
+                    keyframes: {
+                        shake: {
+                            '10%, 90%': { transform: 'translate3d(-1px, 0, 0)' },
+                            '20%, 80%': { transform: 'translate3d(2px, 0, 0)' },
+                            '30%, 50%, 70%': { transform: 'translate3d(-4px, 0, 0)' },
+                            '40%, 60%': { transform: 'translate3d(4px, 0, 0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .text-shadow {
+                text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            }
+            .text-shadow-lg {
+                text-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            }
+            .bg-gradient-danger {
+                background: linear-gradient(135deg, #b71c1c 0%, #e53935 100%);
+            }
+            .glass-effect {
+                background: rgba(255, 255, 255, 0.1);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+        }
+        
+        body {
+            background-color: #ffebee;
+            background-image: 
+                radial-gradient(#f44336 0.5px, transparent 0.5px), 
+                radial-gradient(#f44336 0.5px, #ffebee 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+        
+        .warning-border {
+            position: relative;
+        }
+        
+        .warning-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px solid #f44336;
+            animation: warning-pulse 2s infinite;
+            border-radius: inherit;
+            pointer-events: none;
+        }
+        
+        @keyframes warning-pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(244, 67, 54, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(244, 67, 54, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(244, 67, 54, 0);
+            }
+        }
+        
+        .forbidden-icon {
+            filter: drop-shadow(0 0 8px rgba(244, 67, 54, 0.6));
+        }
+        
+        .warning-icon {
+            filter: drop-shadow(0 0 10px rgba(244, 67, 54, 0.8));
+        }
+        
+        .adult-content-badge {
+            transform: rotate(-15deg);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: rotate(-15deg) translateY(0px); }
+            50% { transform: rotate(-15deg) translateY(-10px); }
+            100% { transform: rotate(-15deg) translateY(0px); }
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <!-- 页面容器 -->
+    <div class="w-full max-w-2xl">
+        <!-- 顶部警告标志 -->
+        <div class="flex justify-center mb-6">
+            <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/4c159987a3194a6caa0e79bcae6581e4~tplv-a9rns2rl98-image.image?rcl=2025102009050765D98FED8C8EA82DA210&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1763514321&x-signature=5WnvXRGfSwPvzBq%2FRJ37fbFbkJo%3D" 
+                 alt="警告标志" 
+                 class="warning-icon w-24 h-24 animate-pulse-warning" 
+                 id="warningIcon">
+        </div>
+        
+        <!-- 主要内容卡片 -->
+        <div class="bg-white rounded-xl shadow-2xl overflow-hidden warning-border p-8 mb-8">
+            <!-- 403错误标题 -->
+            <div class="flex items-center justify-center mb-6">
+                <h1 class="text-6xl font-bold text-danger-800 text-shadow-lg mr-4">403</h1>
+                <div class="h-16 w-px bg-danger-300"></div>
+                <h2 class="text-3xl font-bold text-danger-700 text-shadow ml-4">Forbidden</h2>
+            </div>
+            
+            <!-- 禁止图标和成人内容标识 -->
+            <div class="relative flex justify-center mb-8">
+                <img src="https://p3-flow-imagex-sign.byteimg.com/tos-cn-i-a9rns2rl98/rc/pc/super_tool/882fde7cdd5c414caa34e97ad76c21f0~tplv-a9rns2rl98-image.image?rcl=2025102009050765D98FED8C8EA82DA210&rk3s=8e244e95&rrcfp=f06b921b&x-expires=1763514316&x-signature=oUlGi4ZhUsedXrpTDnRYm6u46mI%3D" 
+                     alt="禁止访问" 
+                     class="forbidden-icon w-32 h-32" 
+                     id="forbiddenIcon">
+                
+                <!-- 成人内容标识 -->
+                <div class="absolute -top-4 -right-4 adult-content-badge">
+                    <div class="bg-danger-900 text-white px-4 py-2 rounded-lg shadow-lg">
+                        <span class="font-bold uppercase text-sm">成人内容</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 错误信息 -->
+            <div class="text-center mb-8">
+                <p class="text-xl text-gray-800 mb-4">您没有访问该页面的权限</p>
+                <p class="text-lg text-danger-700 font-semibold mb-2">⚠️ 警告：本网站内容包含成人色情内容</p>
+                <p class="text-gray-600">根据相关法律法规和政策，您无权访问此页面</p>
+            </div>
+            
+            <!-- 联系信息 -->
+            <div class="glass-effect rounded-lg p-4 mb-6 text-center">
+                <p class="text-gray-700 mb-2">
+                    <i class="fa fa-envelope text-danger-600 mr-2"></i>
+                    如有疑问，请联系管理员：
+                </p>
+                <p class="text-lg font-mono text-danger-800">
+                    <a href="mailto:electronicmonkey@qq.com" class="hover:underline hover:text-danger-600 transition-colors">
+                        electronicmonkey@qq.com
+                    </a>
+                </p>
+            </div>
+            
+            <!-- 操作按钮 -->
+            <div class="flex justify-center space-x-4">
+                <button id="backButton" class="bg-gray-200 hover:bg-gray-300 text-gray-800 font-bold py-3 px-6 rounded-lg shadow transition-all duration-300 flex items-center">
+                    <i class="fa fa-arrow-left mr-2"></i> 返回上一页
+                </button>
+                <button id="homeButton" class="bg-gradient-danger hover:opacity-90 text-white font-bold py-3 px-6 rounded-lg shadow transition-all duration-300 flex items-center">
+                    <i class="fa fa-home mr-2"></i> 返回首页
+                </button>
+            </div>
+        </div>
+        
+        <!-- 底部信息 -->
+        <div class="text-center text-gray-500 text-sm">
+            <p>© 2025 pornography. 保留所有权利.</p>
+            <p class="mt-1">本网站内容仅供成年人访问</p>
+        </div>
+    </div>
+
+    <script>
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化动画
+            initAnimations();
+            
+            // 绑定按钮事件
+            document.getElementById('backButton').addEventListener('click', goBack);
+            document.getElementById('homeButton').addEventListener('click', goHome);
+            
+            // 添加键盘事件
+            document.addEventListener('keydown', handleKeyDown);
+            
+            // 添加鼠标移动效果
+            document.addEventListener('mousemove', handleMouseMove);
+        });
+        
+        // 初始化动画
+        function initAnimations() {
+            // 使用GSAP添加动画效果
+            gsap.from('#warningIcon', {
+                duration: 1,
+                y: -50,
+                opacity: 0,
+                scale: 0.5,
+                ease: 'back.out(1.7)'
+            });
+            
+            gsap.from('#forbiddenIcon', {
+                duration: 1.2,
+                delay: 0.3,
+                scale: 0,
+                rotation: 180,
+                opacity: 0,
+                ease: 'elastic.out(1, 0.3)'
+            });
+            
+            gsap.from('.warning-border', {
+                duration: 0.8,
+                delay: 0.6,
+                y: 50,
+                opacity: 0,
+                ease: 'power3.out'
+            });
+            
+            // 添加脉动效果
+            setInterval(() => {
+                gsap.to('#forbiddenIcon', {
+                    duration: 0.5,
+                    scale: 1.1,
+                    ease: 'power1.inOut',
+                    yoyo: true,
+                    repeat: 1
+                });
+            }, 3000);
+        }
+        
+        // 返回上一页
+        function goBack() {
+            history.back();
+        }
+        
+        // 返回首页
+        function goHome() {
+            window.location.href = '/';
+        }
+        
+        // 处理键盘事件
+        function handleKeyDown(e) {
+            // ESC键返回上一页
+            if (e.key === 'Escape') {
+                goBack();
+            }
+            // F5键刷新页面
+            if (e.key === 'F5') {
+                location.reload();
+            }
+        }
+        
+        // 处理鼠标移动效果
+        function handleMouseMove(e) {
+            const forbiddenIcon = document.getElementById('forbiddenIcon');
+            const x = (e.clientX - window.innerWidth / 2) / 30;
+            const y = (e.clientY - window.innerHeight / 2) / 30;
+            
+            forbiddenIcon.style.transform = `translate(${x}px, ${y}px)`;
+        }
+        
+        // 添加页面加载动画
+        window.addEventListener('load', function() {
+            document.body.classList.add('loaded');
+        });
+    </script>
+</body>
+</html>
